@@ -25,24 +25,27 @@ public class VideoFragment extends Fragment {
 
     RecyclerView recyclerView;
     ArrayList arrayList;
+    //https://raw.githubusercontent.com/RajibTheKing/VideoPlex_Data/master/Artist.json
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        // Inflate the layout for this fragment
+        new JsonData(this).execute("https://raw.githubusercontent.com/RajibTheKing/VideoPlex_Data/master/Artist.json");
 
-        arrayList = new ArrayList();
-        for(int i=0; i<500; i++){
-            arrayList.add("Item " + i);
-        }
 
-        HelperAdapter helperAdapter = new HelperAdapter(getContext(), arrayList);
+        //return startRecyclerView(view);
+        return view;
+    }
+
+    public void setDataInRecyclerView(Artist artist){
+
+        HelperAdapter helperAdapter = new HelperAdapter(getContext(), artist.ArtistData);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(helperAdapter);
 
-        return view;
     }
 
     @Override
