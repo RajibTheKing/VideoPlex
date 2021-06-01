@@ -48,7 +48,7 @@ public class HelperAdapter extends RecyclerView.Adapter {
         viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Item Selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, arrayList.get(position).Name + " --> Selected", Toast.LENGTH_LONG).show();
 
             }
         });

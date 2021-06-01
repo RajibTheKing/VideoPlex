@@ -42,7 +42,7 @@ public class VideoFragment extends Fragment {
     public void setDataInRecyclerView(Artist artist){
 
         HelperAdapter helperAdapter = new HelperAdapter(getContext(), artist.ArtistData);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(helperAdapter);
 
