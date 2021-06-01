@@ -22,11 +22,11 @@ import org.jetbrains.annotations.NotNull;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class HelperAdapter extends RecyclerView.Adapter {
+public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
     Context context;
-    ArrayList<Artist_Data> arrayList;
+    ArrayList<HorizontalModel> arrayList;
 
-    public HelperAdapter(Context context, ArrayList<Artist_Data> arrayList) {
+    public HorizontalRecyclerViewAdapter(Context context, ArrayList<HorizontalModel> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -35,20 +35,22 @@ public class HelperAdapter extends RecyclerView.Adapter {
     @NotNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.display_item, parent, false);
-        ViewHolderClass viewHolderClass = new ViewHolderClass(view);
-        return viewHolderClass;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.horizontal_item, parent, false);
+        HorizontalViewHolderClass horizontalViewHolderClass = new HorizontalViewHolderClass(view);
+        return horizontalViewHolderClass;
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
-        ViewHolderClass viewHolderClass = (ViewHolderClass)holder;
-        viewHolderClass.textView.setText(arrayList.get(position).Name);
-        new DownloadImageTask(viewHolderClass.imageView).execute(arrayList.get(position).Thumbnail_URL);
+        HorizontalViewHolderClass viewHolderClass = (HorizontalViewHolderClass)holder;
+        HorizontalModel horizontalModel = arrayList.get(position);
+        viewHolderClass.textView.setText(horizontalModel.getName());
+        new DownloadImageTask(viewHolderClass.imageView).execute(horizontalModel.getImage_url());
+
         viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, arrayList.get(position).Name + " --> Selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, horizontalModel.getName() + " --> Selected", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -60,11 +62,11 @@ public class HelperAdapter extends RecyclerView.Adapter {
         return arrayList.size();
     }
 
-    public class ViewHolderClass extends RecyclerView.ViewHolder {
+    public class HorizontalViewHolderClass extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
 
-        public ViewHolderClass(@NonNull @NotNull View itemView) {
+        public HorizontalViewHolderClass(@NonNull @NotNull View itemView) {
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.textView);
             imageView = (ImageView)itemView.findViewById(R.id.imageView);

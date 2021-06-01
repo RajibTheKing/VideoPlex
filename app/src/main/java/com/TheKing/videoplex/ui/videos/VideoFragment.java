@@ -4,33 +4,26 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.solver.widgets.Helper;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.TheKing.videoplex.R;
-import com.TheKing.videoplex.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 
 public class VideoFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    ArrayList arrayList;
+    RecyclerView verticalRecyclerView;
+    ArrayList<VerticalModel> arrayList;
     //https://raw.githubusercontent.com/RajibTheKing/VideoPlex_Data/master/Artist.json
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
-        recyclerView = view.findViewById(R.id.recyclerView);
+        verticalRecyclerView = view.findViewById(R.id.verticalRecyclerView);
         // Inflate the layout for this fragment
         new JsonData(this).execute("https://raw.githubusercontent.com/RajibTheKing/VideoPlex_Data/master/Artist.json");
 
@@ -41,11 +34,28 @@ public class VideoFragment extends Fragment {
 
     public void setDataInRecyclerView(Artist artist){
 
-        HelperAdapter helperAdapter = new HelperAdapter(getContext(), artist.ArtistData);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(helperAdapter);
+        VerticalRecyclerViewAdapter verticalRecyclerViewAdapter = new VerticalRecyclerViewAdapter(getContext(), getData());
+        LinearLayoutManager vertical_linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        verticalRecyclerView.setLayoutManager(vertical_linearLayoutManager);
+        verticalRecyclerView.setAdapter(verticalRecyclerViewAdapter);
 
+    }
+
+    public ArrayList<VerticalModel> getData(){
+        int row = 20;
+        int col = 10;
+        ArrayList<VerticalModel> ret = new ArrayList<VerticalModel>();
+        for(int i= 0; i<row; i++){
+            ArrayList<HorizontalModel> cur = new ArrayList<HorizontalModel>();
+            for(int j = 0; j<col; j++){
+                HorizontalModel horizontalItem = new HorizontalModel("Name: " + j, "https://raw.githubusercontent.com/RajibTheKing/VideoPlex_Data/master/images/artist/Tanjin_Tisha_Thumbnail_1366x768.jpg");
+                cur.add(horizontalItem);
+            }
+            VerticalModel verticalModel = new VerticalModel("Title: "+i, cur);
+            ret.add(verticalModel);
+        }
+
+        return ret;
     }
 
     @Override

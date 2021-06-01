@@ -9,7 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView"
-        android:orientation="horizontal"/>
+        android:id="@+id/verticalRecyclerView"
+        android:orientation="vertical"/>
 
 </LinearLayout>
