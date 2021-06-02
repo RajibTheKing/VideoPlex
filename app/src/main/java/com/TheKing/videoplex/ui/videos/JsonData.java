@@ -77,14 +77,7 @@ public class JsonData extends AsyncTask<String, String, String> {
         //Solution to this problem
         //https://stackoverflow.com/questions/1688099/converting-json-data-to-java-object/1688182#1688182
 
-        // Now do the magic.
-        Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
-
-        Artist data = gson.fromJson(result, Artist.class);
-
-        Log.d("TheKing--> Post = ", "> " + data);
-
-        videoFragment.setDataInRecyclerView(data);
+        videoFragment.setDataInRecyclerView(result);
 
 
     }
