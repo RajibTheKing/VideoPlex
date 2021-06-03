@@ -48,7 +48,7 @@ public class VideoFragment extends Fragment {
         HashMap<String, ArrayList<HorizontalModel>> categoryMap = new HashMap<String, ArrayList<HorizontalModel>>();
 
         for(int i=0; i<video.VideoData.size(); i++){
-            HorizontalModel horizontalModel = new HorizontalModel(video.VideoData.get(i).getTitle(), makeThumbnailURL(video.VideoData.get(i).getURL()));
+            HorizontalModel horizontalModel = new HorizontalModel(video.VideoData.get(i).getTitle(), getVideoID(video.VideoData.get(i).getURL()));
             if(categoryMap.get(video.VideoData.get(i).getCategory()) == null ){
                 ArrayList<HorizontalModel> list = new ArrayList<HorizontalModel>();
                 list.add(horizontalModel);
@@ -83,6 +83,10 @@ public class VideoFragment extends Fragment {
 
         return "https://img.youtube.com/vi/"+url.substring(url.lastIndexOf('=')+1,url.length())+"/hqdefault.jpg";
 
+    }
+
+    public String getVideoID(String url){
+        return url.substring(url.lastIndexOf('=')+1,url.length());
     }
 
     public ArrayList<VerticalModel> getData(){

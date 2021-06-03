@@ -1,6 +1,7 @@
 package com.TheKing.videoplex.ui.videos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -17,10 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.TheKing.videoplex.R;
 
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import com.TheKing.videoplex.ui.videos.PlayVideo;
 
 public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
     Context context;
@@ -45,12 +49,16 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
         HorizontalViewHolderClass viewHolderClass = (HorizontalViewHolderClass)holder;
         HorizontalModel horizontalModel = arrayList.get(position);
         viewHolderClass.textView.setText(horizontalModel.getName());
-        new DownloadImageTask(viewHolderClass.imageView).execute(horizontalModel.getImage_url());
+        String imageURL = "https://img.youtube.com/vi/"+horizontalModel.getVideoID()+"/hqdefault.jpg";
+        new DownloadImageTask(viewHolderClass.imageView).execute(imageURL);
 
         viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, horizontalModel.getName() + " --> Selected", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, PlayVideo.class);
+                intent.putExtra("VIDEO_URL",horizontalModel.getVideoID());
+                context.startActivity(intent);
 
             }
         });
