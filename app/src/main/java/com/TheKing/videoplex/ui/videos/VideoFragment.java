@@ -12,6 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.TheKing.videoplex.R;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -32,9 +38,37 @@ public class VideoFragment extends Fragment {
         // Inflate the layout for this fragment
         new JsonData(this).execute("https://raw.githubusercontent.com/RajibTheKing/VideoPlex_Data/master/Video.json");
 
+        //new YoutubeApi(this).execute("https://www.googleapis.com/youtube/v3/videos?id=U5G25kcaNu0&key=AIzaSyBv2bgy-oPjpNXH6w11aFvqtrEzF1UNyLs&part=snippet,contentDetails,statistics,status");
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this.getContext());
+        String url ="https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyBKwvNR4nPv60u2sU-6Q14WSWDBqog-iLs\n" +
+                "     &part=snippet,contentDetails,statistics,status";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.d("TheKing-->", "Youtube API Response > " + response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TheKing-->", "Youtube API Response > " + error);
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
 
         //return startRecyclerView(view);
         return view;
+    }
+
+    public void onReceiveYoutubeApi(String data){
+        Log.d("TheKing--> yt dta = ", "> " + data);
     }
 
     public void setDataInRecyclerView(String data){
@@ -49,6 +83,7 @@ public class VideoFragment extends Fragment {
 
         for(int i=0; i<video.VideoData.size(); i++){
             HorizontalModel horizontalModel = new HorizontalModel(video.VideoData.get(i).getTitle(), getVideoID(video.VideoData.get(i).getURL()));
+
             if(categoryMap.get(video.VideoData.get(i).getCategory()) == null ){
                 ArrayList<HorizontalModel> list = new ArrayList<HorizontalModel>();
                 list.add(horizontalModel);
