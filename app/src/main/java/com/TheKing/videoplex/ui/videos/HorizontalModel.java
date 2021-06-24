@@ -1,29 +1,17 @@
 package com.TheKing.videoplex.ui.videos;
 
 public class HorizontalModel {
-    public String name;
-    public String videoID;
+    Video_Data videoModel;
 
-
-
-    public HorizontalModel(String name, String videoID) {
-        this.name = name;
-        this.videoID = videoID;
+    public HorizontalModel(Video_Data videoModel) {
+        this.videoModel = videoModel;
     }
 
-    public String getName() {
-        return name;
+    public Video_Data getVideoModel() {
+        return videoModel;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVideoID() {
-        return videoID;
-    }
-
-    public void setVideoID(String videoID) {
-        this.videoID = videoID;
+    public void setVideoModel(Video_Data videoModel) {
+        this.videoModel = videoModel;
     }
 }

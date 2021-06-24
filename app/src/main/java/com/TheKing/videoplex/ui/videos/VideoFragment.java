@@ -38,42 +38,14 @@ public class VideoFragment extends Fragment {
         // Inflate the layout for this fragment
         new JsonData(this).execute("https://raw.githubusercontent.com/RajibTheKing/VideoPlex_Data/master/Video.json");
 
-        //new YoutubeApi(this).execute("https://www.googleapis.com/youtube/v3/videos?id=U5G25kcaNu0&key=AIzaSyBv2bgy-oPjpNXH6w11aFvqtrEzF1UNyLs&part=snippet,contentDetails,statistics,status");
-
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this.getContext());
-        String url ="https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyBKwvNR4nPv60u2sU-6Q14WSWDBqog-iLs\n" +
-                "     &part=snippet,contentDetails,statistics,status";
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.d("TheKing-->", "Youtube API Response > " + response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TheKing-->", "Youtube API Response > " + error);
-            }
-        });
-
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
         //return startRecyclerView(view);
         return view;
     }
 
-    public void onReceiveYoutubeApi(String data){
-        Log.d("TheKing--> yt dta = ", "> " + data);
-    }
 
     public void setDataInRecyclerView(String data){
         // Now do the magic.
-        Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
         Video video = gson.fromJson(data, Video.class);
 
@@ -82,7 +54,7 @@ public class VideoFragment extends Fragment {
         HashMap<String, ArrayList<HorizontalModel>> categoryMap = new HashMap<String, ArrayList<HorizontalModel>>();
 
         for(int i=0; i<video.VideoData.size(); i++){
-            HorizontalModel horizontalModel = new HorizontalModel(video.VideoData.get(i).getTitle(), getVideoID(video.VideoData.get(i).getURL()));
+            HorizontalModel horizontalModel = new HorizontalModel(video.VideoData.get(i));
 
             if(categoryMap.get(video.VideoData.get(i).getCategory()) == null ){
                 ArrayList<HorizontalModel> list = new ArrayList<HorizontalModel>();
@@ -110,37 +82,6 @@ public class VideoFragment extends Fragment {
         verticalRecyclerView.setLayoutManager(vertical_linearLayoutManager);
         verticalRecyclerView.setAdapter(verticalRecyclerViewAdapter);
 
-    }
-
-    public String makeThumbnailURL(String url){
-        //Original URL: https://www.youtube.com/watch?v=tVwf4AMxHos
-        //https://img.youtube.com/vi/ISdupOBMB5s/hqdefault.jpg
-
-        return "https://img.youtube.com/vi/"+url.substring(url.lastIndexOf('=')+1,url.length())+"/hqdefault.jpg";
-
-    }
-
-    public String getVideoID(String url){
-        return url.substring(url.lastIndexOf('=')+1,url.length());
-    }
-
-    public ArrayList<VerticalModel> getData(){
-        int row = 20;
-        int col = 10;
-        ArrayList<VerticalModel> ret = new ArrayList<VerticalModel>();
-        for(int i= 0; i<row; i++){
-            ArrayList<HorizontalModel> cur = new ArrayList<HorizontalModel>();
-            for(int j = 0; j<col; j++){
-                //HorizontalModel horizontalItem = new HorizontalModel("Name: " + j, "https://raw.githubusercontent.com/RajibTheKing/VideoPlex_Data/master/images/artist/Tanjin_Tisha_Thumbnail_1366x768.jpg");
-                HorizontalModel horizontalItem = new HorizontalModel("Name: " + j, "https://img.youtube.com/vi/ISdupOBMB5s/hqdefault.jpg");
-
-                cur.add(horizontalItem);
-            }
-            VerticalModel verticalModel = new VerticalModel("Title: "+i, cur);
-            ret.add(verticalModel);
-        }
-
-        return ret;
     }
 
     @Override

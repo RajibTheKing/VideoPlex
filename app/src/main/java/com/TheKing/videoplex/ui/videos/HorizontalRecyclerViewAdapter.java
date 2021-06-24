@@ -48,16 +48,16 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
         HorizontalViewHolderClass viewHolderClass = (HorizontalViewHolderClass)holder;
         HorizontalModel horizontalModel = arrayList.get(position);
-        viewHolderClass.textView.setText(horizontalModel.getName());
-        String imageURL = "https://img.youtube.com/vi/"+horizontalModel.getVideoID()+"/hqdefault.jpg";
+        viewHolderClass.textView.setText(horizontalModel.getVideoModel().Title);
+        String imageURL = horizontalModel.getVideoModel().Thumbnail_URL;
         new DownloadImageTask(viewHolderClass.imageView).execute(imageURL);
 
         viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, horizontalModel.getName() + " --> Selected", Toast.LENGTH_LONG).show();
+                // Toast.makeText(context, horizontalModel.getName() + " --> Selected", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(context, PlayVideo.class);
-                intent.putExtra("VIDEO_URL",horizontalModel.getVideoID());
+                intent.putExtra("VIDEO_URL",horizontalModel.getVideoModel().ID);
                 context.startActivity(intent);
 
             }

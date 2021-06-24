@@ -37,20 +37,20 @@ class Video_Data{
     String Category;
     String Thumbnail_URL;
     ArrayList<String> Artist_ID;
-    Date Release_Date;
-    long Viewcount;
-    long Likes;
-    long Dislikes;
+    Date PublishedAt;
+    long ViewCount;
+    long LikeCount;
+    long DislikeCount;
     String URL;
-    String Length;
+    String Duration;
     ArrayList<String> Genre;
     String Quality;
     String Country;
     String Language;
     ArrayList<String> Director;
     ArrayList<String> Producer;
-    String Publisher;
-    Date Upload_Date;
+    String ChannelTitle;
+    String UpdatedAt;
     ArrayList<String> Rating;
 
     public String getID() {
@@ -93,36 +93,36 @@ class Video_Data{
         Artist_ID = artist_ID;
     }
 
-    public Date getRelease_Date() {
-        return Release_Date;
+    public Date getPublishedAt() {
+        return PublishedAt;
     }
 
-    public void setRelease_Date(Date release_Date) {
-        Release_Date = release_Date;
+    public void setPublishedAt(Date publishedAt) {
+        PublishedAt = publishedAt;
     }
 
-    public long getViewcount() {
-        return Viewcount;
+    public long getViewCount() {
+        return ViewCount;
     }
 
-    public void setViewcount(long viewcount) {
-        Viewcount = viewcount;
+    public void setViewCount(long viewCount) {
+        ViewCount = viewCount;
     }
 
-    public long getLikes() {
-        return Likes;
+    public long getLikeCount() {
+        return LikeCount;
     }
 
-    public void setLikes(long likes) {
-        Likes = likes;
+    public void setLikeCount(long likeCount) {
+        LikeCount = likeCount;
     }
 
-    public long getDislikes() {
-        return Dislikes;
+    public long getDislikeCount() {
+        return DislikeCount;
     }
 
-    public void setDislikes(long dislikes) {
-        Dislikes = dislikes;
+    public void setDislikeCount(long dislikeCount) {
+        DislikeCount = dislikeCount;
     }
 
     public String getURL() {
@@ -133,12 +133,12 @@ class Video_Data{
         this.URL = URL;
     }
 
-    public String getLength() {
-        return Length;
+    public String getDuration() {
+        return Duration;
     }
 
-    public void setLength(String length) {
-        Length = length;
+    public void setDuration(String duration) {
+        Duration = duration;
     }
 
     public ArrayList<String> getGenre() {
@@ -189,20 +189,20 @@ class Video_Data{
         Producer = producer;
     }
 
-    public String getPublisher() {
-        return Publisher;
+    public String getChannelTitle() {
+        return ChannelTitle;
     }
 
-    public void setPublisher(String publisher) {
-        Publisher = publisher;
+    public void setChannelTitle(String channelTitle) {
+        ChannelTitle = channelTitle;
     }
 
-    public Date getUpload_Date() {
-        return Upload_Date;
+    public String getUpdatedAt() {
+        return UpdatedAt;
     }
 
-    public void setUpload_Date(Date upload_Date) {
-        Upload_Date = upload_Date;
+    public void setUpdatedAt(String updatedAt) {
+        UpdatedAt = updatedAt;
     }
 
     public ArrayList<String> getRating() {
@@ -213,26 +213,3 @@ class Video_Data{
         Rating = rating;
     }
 }
-
-/*
-            "ID" : "1",
-            "Title" : "Biye | বিয়ে ",
-            "Category": "Natok",
-            "Thumbnail_URL": "",
-            "Artist_ID": ["1","2"],
-            "Release_Date":"29-05-2020",
-            "Viewcount" : 8912631,
-            "Likes" : 146000,
-            "Dislikes" : 10000,
-            "URL" : "https://www.youtube.com/watch?v=tVwf4AMxHos" ,
-            "Length" : "00-40-46",
-            "Genre" : [],
-            "Quality" : "1080p60",
-            "Country" : "Bangladesh",
-            "Language" : "Bangla",
-            "Director" : ["Jakaria Showkhin"],
-            "Producer" : ["Kachi Ahmed"],
-            "Publisher": "Eagle Premier Station",
-            "Upload_Date" : "29-05-2020",
-            "Rating":[]
- */
