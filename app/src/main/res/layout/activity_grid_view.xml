@@ -6,13 +6,14 @@
     android:background="@drawable/gradient_bg">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/gridActivityAppBar"
+        android:id="@+id/gridViewActivityAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/gradient_bg"
         android:theme="@style/Theme.VideoPlex.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/gridViewToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             />
@@ -22,8 +23,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/gridActivityAppBar"
         android:id="@+id/gridRecylerView"
-        android:orientation="vertical" />
+        android:layout_below="@id/gridViewActivityAppBar"
+        android:orientation="vertical"/>
 
 </RelativeLayout>

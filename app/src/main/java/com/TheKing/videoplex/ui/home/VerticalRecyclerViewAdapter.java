@@ -61,10 +61,12 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
         verticalViewHolder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, verticalModel.getTitle(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, verticalModel.getTitle(), Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(context, GridViewActivity.class);
                 String verticalModelInJson = gson.toJson(verticalModel);
                 intent.putExtra("verticalModelInJson", verticalModelInJson);
+                intent.putExtra("actionBarTitle", verticalModel.getTitle());
                 context.startActivity(intent);
             }
         });

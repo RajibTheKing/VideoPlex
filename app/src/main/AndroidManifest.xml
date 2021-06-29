@@ -22,7 +22,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
-            android:theme="@style/Theme.VideoPlex.NoActionBar">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
