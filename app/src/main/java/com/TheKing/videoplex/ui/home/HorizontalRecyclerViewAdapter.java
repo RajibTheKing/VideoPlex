@@ -1,4 +1,4 @@
-package com.TheKing.videoplex.ui.videos;
+package com.TheKing.videoplex.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,20 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.TheKing.videoplex.R;
 
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import com.daimajia.androidanimations.*;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
-import com.TheKing.videoplex.ui.videos.PlayVideo;
 
 public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
     Context context;
@@ -49,7 +49,20 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
         HorizontalViewHolderClass viewHolderClass = (HorizontalViewHolderClass)holder;
         HorizontalModel horizontalModel = arrayList.get(position);
         viewHolderClass.textView.setText(horizontalModel.getVideoModel().Title);
-        String imageURL = horizontalModel.getVideoModel().Thumbnail_URL;
+
+
+        YoYo.with(Techniques.Tada)
+                .duration(2000)
+                .playOn(viewHolderClass.imageView);
+
+
+        String imageURL = "";
+        if(horizontalModel.getVideoModel().getPoster().length() > 0){
+            imageURL = horizontalModel.getVideoModel().getPoster();
+        }else{
+            imageURL = horizontalModel.getVideoModel().getThumbnail_URL();
+        }
+
         new DownloadImageTask(viewHolderClass.imageView).execute(imageURL);
 
         viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {

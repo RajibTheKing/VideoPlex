@@ -1,4 +1,4 @@
-package com.TheKing.videoplex.ui.videos;
+package com.TheKing.videoplex.ui.home;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,18 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.TheKing.videoplex.R;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+
 
 public class VideoFragment extends Fragment {
 
@@ -49,7 +44,7 @@ public class VideoFragment extends Fragment {
 
         Video video = gson.fromJson(data, Video.class);
 
-        Log.d("TheKing--> video Dta = ", "> " + video);
+        //Log.d("TheKing--> video Dta = ", "> " + video);
 
         HashMap<String, ArrayList<HorizontalModel>> categoryMap = new HashMap<String, ArrayList<HorizontalModel>>();
 

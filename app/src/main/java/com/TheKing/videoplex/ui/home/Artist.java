@@ -1,6 +1,4 @@
-package com.TheKing.videoplex.ui.videos;
-
-import android.provider.ContactsContract;
+package com.TheKing.videoplex.ui.home;
 
 import java.util.ArrayList;
 import java.util.Date;

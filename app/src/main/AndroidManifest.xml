@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoPlex">
-        <activity android:name=".ui.videos.PlayVideo" android:parentActivityName=".MainActivity"
+        <activity android:name=".ui.home.PlayVideo" android:parentActivityName=".MainActivity"
             android:configChanges="orientation"
             >
 
@@ -23,6 +23,7 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.VideoPlex.NoActionBar"
             android:configChanges="orientation"
+
             >
 
             <intent-filter>

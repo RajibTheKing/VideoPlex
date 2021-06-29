@@ -1,4 +1,4 @@
-package com.TheKing.videoplex.ui.videos;
+package com.TheKing.videoplex.ui.home;
 
 import java.util.ArrayList;
 

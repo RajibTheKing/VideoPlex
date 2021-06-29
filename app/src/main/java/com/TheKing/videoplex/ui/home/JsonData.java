@@ -1,10 +1,7 @@
-package com.TheKing.videoplex.ui.videos;
+package com.TheKing.videoplex.ui.home;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,9 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class JsonData extends AsyncTask<String, String, String> {
     VideoFragment videoFragment;
@@ -44,7 +38,7 @@ public class JsonData extends AsyncTask<String, String, String> {
 
             while ((line = reader.readLine()) != null) {
                 buffer.append(line+"\n");
-                Log.d("TheKing--> Response: ", "> " + line);   //here u ll get whole response...... :-)
+                //Log.d("TheKing--> Response: ", "> " + line);   //here u ll get whole response...... :-)
 
             }
 
@@ -73,7 +67,7 @@ public class JsonData extends AsyncTask<String, String, String> {
         // TODO: check this.exception
         // TODO: do something with the feed
 
-        Log.d("TheKing--> Post = ", "> " + result);
+        //Log.d("TheKing--> Post = ", "> " + result);
         //Solution to this problem
         //https://stackoverflow.com/questions/1688099/converting-json-data-to-java-object/1688182#1688182
 

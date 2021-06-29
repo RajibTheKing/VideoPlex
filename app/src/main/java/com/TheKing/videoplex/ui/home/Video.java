@@ -1,6 +1,4 @@
-package com.TheKing.videoplex.ui.videos;
-
-import android.provider.ContactsContract;
+package com.TheKing.videoplex.ui.home;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,8 +33,9 @@ class Video_Data{
     String ID;
     String Title;
     String Category;
+    ArrayList<CastObj> Cast;
     String Thumbnail_URL;
-    ArrayList<String> Artist_ID;
+
     Date PublishedAt;
     long ViewCount;
     long LikeCount;
@@ -46,12 +45,20 @@ class Video_Data{
     ArrayList<String> Genre;
     String Quality;
     String Country;
-    String Language;
+    ArrayList<String> Language;
     ArrayList<String> Director;
     ArrayList<String> Producer;
     String ChannelTitle;
     String UpdatedAt;
-    ArrayList<String> Rating;
+    ArrayList<RatingObj> Ratings;
+    String Year;
+    String Released;
+    ArrayList<String> Writer;
+    String Plot;
+    String Poster;
+    String IMDBId;
+    String BoxOffice;
+    ArrayList<String> Production;
 
     public String getID() {
         return ID;
@@ -77,20 +84,20 @@ class Video_Data{
         Category = category;
     }
 
+    public ArrayList<CastObj> getCast() {
+        return Cast;
+    }
+
+    public void setCast(ArrayList<CastObj> cast) {
+        Cast = cast;
+    }
+
     public String getThumbnail_URL() {
         return Thumbnail_URL;
     }
 
     public void setThumbnail_URL(String thumbnail_URL) {
         Thumbnail_URL = thumbnail_URL;
-    }
-
-    public ArrayList<String> getArtist_ID() {
-        return Artist_ID;
-    }
-
-    public void setArtist_ID(ArrayList<String> artist_ID) {
-        Artist_ID = artist_ID;
     }
 
     public Date getPublishedAt() {
@@ -165,11 +172,11 @@ class Video_Data{
         Country = country;
     }
 
-    public String getLanguage() {
+    public ArrayList<String> getLanguage() {
         return Language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(ArrayList<String> language) {
         Language = language;
     }
 
@@ -205,11 +212,126 @@ class Video_Data{
         UpdatedAt = updatedAt;
     }
 
-    public ArrayList<String> getRating() {
-        return Rating;
+    public ArrayList<RatingObj> getRatings() {
+        return Ratings;
     }
 
-    public void setRating(ArrayList<String> rating) {
-        Rating = rating;
+    public void setRatings(ArrayList<RatingObj> ratings) {
+        Ratings = ratings;
+    }
+
+    public String getYear() {
+        return Year;
+    }
+
+    public void setYear(String year) {
+        Year = year;
+    }
+
+    public String getReleased() {
+        return Released;
+    }
+
+    public void setReleased(String released) {
+        Released = released;
+    }
+
+    public ArrayList<String> getWriter() {
+        return Writer;
+    }
+
+    public void setWriter(ArrayList<String> writer) {
+        Writer = writer;
+    }
+
+    public String getPlot() {
+        return Plot;
+    }
+
+    public void setPlot(String plot) {
+        Plot = plot;
+    }
+
+    public String getPoster() {
+        return Poster;
+    }
+
+    public void setPoster(String poster) {
+        Poster = poster;
+    }
+
+    public String getIMDBId() {
+        return IMDBId;
+    }
+
+    public void setIMDBId(String IMDBId) {
+        this.IMDBId = IMDBId;
+    }
+
+    public String getBoxOffice() {
+        return BoxOffice;
+    }
+
+    public void setBoxOffice(String boxOffice) {
+        BoxOffice = boxOffice;
+    }
+
+    public ArrayList<String> getProduction() {
+        return Production;
+    }
+
+    public void setProduction(ArrayList<String> production) {
+        Production = production;
+    }
+}
+
+class CastObj {
+    String actor;
+    String actor_id;
+    String character;
+
+    public String getActor() {
+        return actor;
+    }
+
+    public void setActor(String actor) {
+        this.actor = actor;
+    }
+
+    public String getActor_id() {
+        return actor_id;
+    }
+
+    public void setActor_id(String actor_id) {
+        this.actor_id = actor_id;
+    }
+
+    public String getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(String character) {
+        this.character = character;
+    }
+}
+
+class RatingObj {
+    String Source;
+    String Value;
+
+    public String getSource() {
+        return Source;
+    }
+
+    public void setSource(String source) {
+        Source = source;
+    }
+
+    public String getValue() {
+        return Value;
+    }
+
+    public void setValue(String value) {
+        Value = value;
     }
 }
