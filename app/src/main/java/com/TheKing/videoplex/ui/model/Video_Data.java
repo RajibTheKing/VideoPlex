@@ -1,35 +1,12 @@
-package com.TheKing.videoplex.ui.home;
+package com.TheKing.videoplex.ui.model;
+
+import com.TheKing.videoplex.ui.model.CastObj;
+import com.TheKing.videoplex.ui.model.RatingObj;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Video {
-    ArrayList<Video_Data> VideoData;
-
-    public ArrayList<Video_Data> getVideoData() {
-        return VideoData;
-    }
-
-    public void setVideoData(ArrayList<Video_Data> videoData) {
-        VideoData = videoData;
-    }
-
-    public String toString() {
-
-        String result = "";
-        for(int i = 0; i<VideoData.size(); i++){
-            Video_Data data = VideoData.get(i);
-            String curr = String.format("{ID:%s,Category:%s,Title:%s,URL:%s}",
-                    data.ID, data.Category, data.Title, data.URL);
-            result = result + curr + "\n";
-
-
-        }
-        return result;
-    }
-}
-
-class Video_Data{
+public class Video_Data{
     String ID;
     String Title;
     String Category;
@@ -282,56 +259,5 @@ class Video_Data{
 
     public void setProduction(ArrayList<String> production) {
         Production = production;
-    }
-}
-
-class CastObj {
-    String actor;
-    String actor_id;
-    String character;
-
-    public String getActor() {
-        return actor;
-    }
-
-    public void setActor(String actor) {
-        this.actor = actor;
-    }
-
-    public String getActor_id() {
-        return actor_id;
-    }
-
-    public void setActor_id(String actor_id) {
-        this.actor_id = actor_id;
-    }
-
-    public String getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(String character) {
-        this.character = character;
-    }
-}
-
-class RatingObj {
-    String Source;
-    String Value;
-
-    public String getSource() {
-        return Source;
-    }
-
-    public void setSource(String source) {
-        Source = source;
-    }
-
-    public String getValue() {
-        return Value;
-    }
-
-    public void setValue(String value) {
-        Value = value;
     }
 }

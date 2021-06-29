@@ -1,4 +1,4 @@
-package com.TheKing.videoplex.ui.home;
+package com.TheKing.videoplex.ui.gridView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,18 +22,23 @@ import org.jetbrains.annotations.NotNull;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import com.TheKing.videoplex.ui.home.PlayVideo;
 import com.TheKing.videoplex.ui.model.Video_Data;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 
-public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
+public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter {
     Context context;
     ArrayList<Video_Data> arrayList;
 
-    public HorizontalRecyclerViewAdapter(Context context, ArrayList<Video_Data> arrayList) {
+    public GridViewRecyclerViewAdapter(Context context, ArrayList<Video_Data> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
+        for(int i=0; i<arrayList.size(); i++){
+            Log.d("TheKing-->", "Inside GridViewRecylcerViewAdapter, arrayList = " + arrayList.get(i).getTitle());
+        }
+
     }
 
     @NonNull
@@ -41,13 +46,13 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item, parent, false);
-        HorizontalViewHolderClass horizontalViewHolderClass = new HorizontalViewHolderClass(view);
-        return horizontalViewHolderClass;
+        GridViewHolderClass gridViewHolderClass = new GridViewHolderClass(view);
+        return gridViewHolderClass;
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
-        HorizontalViewHolderClass viewHolderClass = (HorizontalViewHolderClass)holder;
+        GridViewHolderClass viewHolderClass = (GridViewHolderClass)holder;
         Video_Data singleVideoModel = arrayList.get(position);
         viewHolderClass.textView.setText(singleVideoModel.getTitle());
 
@@ -84,11 +89,11 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
         return arrayList.size();
     }
 
-    public class HorizontalViewHolderClass extends RecyclerView.ViewHolder {
+    public class GridViewHolderClass extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
 
-        public HorizontalViewHolderClass(@NonNull @NotNull View itemView) {
+        public GridViewHolderClass(@NonNull @NotNull View itemView) {
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.textView);
             imageView = (ImageView)itemView.findViewById(R.id.imageView);

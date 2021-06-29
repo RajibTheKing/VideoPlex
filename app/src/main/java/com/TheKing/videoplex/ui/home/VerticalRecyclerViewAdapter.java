@@ -1,6 +1,8 @@
 package com.TheKing.videoplex.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +17,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.TheKing.videoplex.R;
+import com.TheKing.videoplex.ui.gridView.GridViewActivity;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRecyclerViewAdapter.VerticalViewHolder> {
     Context context;
     ArrayList<VerticalModel> arrayList;
+    Gson gson;
 
     public VerticalRecyclerViewAdapter(Context context, ArrayList<VerticalModel> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
+        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     }
 
     @NonNull
@@ -54,6 +62,10 @@ public class VerticalRecyclerViewAdapter extends RecyclerView.Adapter<VerticalRe
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, verticalModel.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, GridViewActivity.class);
+                String verticalModelInJson = gson.toJson(verticalModel);
+                intent.putExtra("verticalModelInJson", verticalModelInJson);
+                context.startActivity(intent);
             }
         });
 

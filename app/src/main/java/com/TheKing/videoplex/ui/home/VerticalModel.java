@@ -1,12 +1,13 @@
 package com.TheKing.videoplex.ui.home;
+import com.TheKing.videoplex.ui.model.Video_Data;
 
 import java.util.ArrayList;
 
 public class VerticalModel {
     public String title;
-    ArrayList<HorizontalModel> arrayList;
+    ArrayList<Video_Data> arrayList;
 
-    public VerticalModel(String title, ArrayList<HorizontalModel> arrayList) {
+    public VerticalModel(String title, ArrayList<Video_Data> arrayList) {
         this.title = title;
         this.arrayList = arrayList;
     }
@@ -19,11 +20,11 @@ public class VerticalModel {
         this.title = title;
     }
 
-    public ArrayList<HorizontalModel> getArrayList() {
+    public ArrayList<Video_Data> getArrayList() {
         return arrayList;
     }
 
-    public void setArrayList(ArrayList<HorizontalModel> arrayList) {
+    public void setArrayList(ArrayList<Video_Data> arrayList) {
         this.arrayList = arrayList;
     }
 }

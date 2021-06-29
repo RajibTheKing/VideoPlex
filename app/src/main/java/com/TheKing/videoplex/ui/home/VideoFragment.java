@@ -1,7 +1,6 @@
 package com.TheKing.videoplex.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.TheKing.videoplex.R;
+import com.TheKing.videoplex.ui.model.Video;
+import com.TheKing.videoplex.ui.model.Video_Data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -46,19 +47,19 @@ public class VideoFragment extends Fragment {
 
         //Log.d("TheKing--> video Dta = ", "> " + video);
 
-        HashMap<String, ArrayList<HorizontalModel>> categoryMap = new HashMap<String, ArrayList<HorizontalModel>>();
+        HashMap<String, ArrayList<Video_Data>> categoryMap = new HashMap<String, ArrayList<Video_Data>>();
 
-        for(int i=0; i<video.VideoData.size(); i++){
-            HorizontalModel horizontalModel = new HorizontalModel(video.VideoData.get(i));
+        for(int i=0; i<video.getVideoData().size(); i++){
+            Video_Data singleVideoModel = video.getVideoData().get(i);
 
-            if(categoryMap.get(video.VideoData.get(i).getCategory()) == null ){
-                ArrayList<HorizontalModel> list = new ArrayList<HorizontalModel>();
-                list.add(horizontalModel);
-                categoryMap.put(video.VideoData.get(i).getCategory(), list);
+            if(categoryMap.get(video.getVideoData().get(i).getCategory()) == null ){
+                ArrayList<Video_Data> list = new ArrayList<Video_Data>();
+                list.add(singleVideoModel);
+                categoryMap.put(video.getVideoData().get(i).getCategory(), list);
             }else{
-                ArrayList<HorizontalModel> list = categoryMap.get(video.VideoData.get(i).getCategory());
-                list.add(horizontalModel);
-                categoryMap.put(video.VideoData.get(i).getCategory(), list);
+                ArrayList<Video_Data> list = categoryMap.get(video.getVideoData().get(i).getCategory());
+                list.add(singleVideoModel);
+                categoryMap.put(video.getVideoData().get(i).getCategory(), list);
             }
         }
 
@@ -66,7 +67,7 @@ public class VideoFragment extends Fragment {
 
         ArrayList<VerticalModel> parsedData = new ArrayList<VerticalModel>();
         for (String category : categories) {
-            ArrayList<HorizontalModel> cur = categoryMap.get(category);
+            ArrayList<Video_Data> cur = categoryMap.get(category);
             VerticalModel verticalModel = new VerticalModel(category, cur);
             parsedData.add(verticalModel);
 
