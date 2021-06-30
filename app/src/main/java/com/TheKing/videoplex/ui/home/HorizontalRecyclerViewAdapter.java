@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.TheKing.videoplex.ui.model.Video_Data;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
@@ -64,7 +66,9 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
             imageURL = singleVideoModel.getThumbnail_URL();
         }
 
-        new DownloadImageTask(viewHolderClass.imageView).execute(imageURL);
+        Glide.with(this.context).load(imageURL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(viewHolderClass.imageView);
 
         viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,31 +96,6 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.textView);
             imageView = (ImageView)itemView.findViewById(R.id.imageView);
-        }
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
         }
     }
 }
