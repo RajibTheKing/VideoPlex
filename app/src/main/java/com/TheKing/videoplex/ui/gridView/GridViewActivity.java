@@ -1,6 +1,7 @@
 package com.TheKing.videoplex.ui.gridView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.inputmethod.EditorInfo;
 
 import com.TheKing.videoplex.R;
 import com.TheKing.videoplex.ui.home.VerticalModel;
@@ -22,6 +24,7 @@ public class GridViewActivity extends AppCompatActivity {
     Gson gson;
     RecyclerView gridRecyclerView;
     GridViewRecyclerViewAdapter gridViewRecyclerViewAdapter;
+    SearchView searchView;
 
 
 
@@ -69,6 +72,27 @@ public class GridViewActivity extends AppCompatActivity {
 
 
         gridRecyclerView.setAdapter(gridViewRecyclerViewAdapter);
+
+
+        searchView = findViewById(R.id.gridViewSearch);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("TheKing--> ", "onQueryTexhChange: " + newText);
+                gridViewRecyclerViewAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+
+
 
 
 

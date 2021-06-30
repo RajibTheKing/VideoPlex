@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,22 +25,21 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.TheKing.videoplex.ui.home.PlayVideo;
+import com.TheKing.videoplex.ui.model.Video;
 import com.TheKing.videoplex.ui.model.Video_Data;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 
-public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter {
+public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements Filterable {
     Context context;
     ArrayList<Video_Data> arrayList;
+    ArrayList<Video_Data> arrayListFull;
 
     public GridViewRecyclerViewAdapter(Context context, ArrayList<Video_Data> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
-        for(int i=0; i<arrayList.size(); i++){
-            Log.d("TheKing-->", "Inside GridViewRecylcerViewAdapter, arrayList = " + arrayList.get(i).getTitle());
-        }
-
+        arrayListFull = new ArrayList<>(arrayList);
     }
 
     @NonNull
@@ -124,4 +125,38 @@ public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter {
             bmImage.setImageBitmap(result);
         }
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return OurSearchFilter;
+    }
+
+    private Filter OurSearchFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Video_Data> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0){
+                filteredList.addAll(arrayListFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Video_Data item : arrayListFull){
+                    if (item.getTitle().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            arrayList.clear();
+            arrayList.addAll((ArrayList<Video_Data>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }
