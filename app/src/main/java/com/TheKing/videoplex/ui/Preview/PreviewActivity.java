@@ -16,6 +16,8 @@ import com.TheKing.videoplex.ui.home.PlayVideo;
 import com.TheKing.videoplex.ui.home.VerticalModel;
 import com.TheKing.videoplex.ui.model.Video_Data;
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -33,7 +35,7 @@ public class PreviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_preview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.previewToolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle(appBarTitle);
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -49,6 +51,9 @@ public class PreviewActivity extends AppCompatActivity {
 
         TextView preview_Title_Text = findViewById(R.id.preview_title_text);
         preview_Title_Text.setText(singleVideo.getTitle());
+        YoYo.with(Techniques.ZoomIn)
+                .duration(2000)
+                .playOn(preview_Title_Text);
 
 
         ImageButton preview_PlayButton = findViewById(R.id.preview_play_button);
@@ -60,6 +65,11 @@ public class PreviewActivity extends AppCompatActivity {
                 context.startActivity(intent);
             }
         });
+
+        YoYo.with(Techniques.Pulse)
+                .duration(2000)
+                .repeat(YoYo.INFINITE)
+                .playOn(preview_PlayButton);
 
 
         TextView preview_gnre_duration_release_textview = findViewById(R.id.preview_gnre_duration_year_text);
@@ -89,12 +99,21 @@ public class PreviewActivity extends AppCompatActivity {
 
         TextView preview_like_count = findViewById(R.id.preview_like_count_text);
         preview_like_count.setText(String.valueOf(singleVideo.getLikeCount()) + " likes");
+        YoYo.with(Techniques.Swing)
+                .duration(2000)
+                .playOn(preview_like_count);
 
         TextView preview_dislike_count = findViewById(R.id.preview_dislike_count_text);
         preview_dislike_count.setText(String.valueOf(singleVideo.getDislikeCount()) + " dislikes");
+        YoYo.with(Techniques.Swing)
+                .duration(2000)
+                .playOn(preview_dislike_count);
 
         TextView preview_ViewCount = findViewById(R.id.preview_viewCount_text);
         preview_ViewCount.setText(String.valueOf(singleVideo.getViewCount()) + " views");
+        YoYo.with(Techniques.Swing)
+                .duration(2000)
+                .playOn(preview_ViewCount);
 
         TextView preview_Plot = findViewById(R.id.preview_plot_text);
         preview_Plot.setText(singleVideo.getPlot());

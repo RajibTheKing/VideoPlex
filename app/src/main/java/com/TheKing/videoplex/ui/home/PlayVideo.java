@@ -41,6 +41,7 @@ public class PlayVideo extends YouTubeBaseActivity{
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d("TheKing-->", "Youtube Initialization is Successful");
                 youTubePlayer.cueVideo(videoID);
+                youTubePlayer.setFullscreen(true);
                 //youTubePlayer.loadVideo(videoID);
                 youTubePlayer.play();
 
