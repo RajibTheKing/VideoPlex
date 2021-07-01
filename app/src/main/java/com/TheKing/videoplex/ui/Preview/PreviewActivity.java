@@ -1,0 +1,110 @@
+package com.TheKing.videoplex.ui.Preview;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.TheKing.videoplex.R;
+import com.TheKing.videoplex.ui.home.PlayVideo;
+import com.TheKing.videoplex.ui.home.VerticalModel;
+import com.TheKing.videoplex.ui.model.Video_Data;
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.w3c.dom.Text;
+
+public class PreviewActivity extends AppCompatActivity {
+    Gson gson;
+    Video_Data singleVideo;
+    Context context;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        context = this;
+        setContentView(R.layout.activity_preview);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.previewToolbar);
+        setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle(appBarTitle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        //Get Parameter Value:
+        Bundle b = getIntent().getExtras();
+        String singleVideoInJson = b.getString("singleVideoJson");
+
+        singleVideo = gson.fromJson(singleVideoInJson, Video_Data.class);
+
+        ImageView previewImageView = findViewById(R.id.previewImage);
+        Glide.with(this).load(singleVideo.getPoster()).into(previewImageView);
+
+
+        TextView preview_Title_Text = findViewById(R.id.preview_title_text);
+        preview_Title_Text.setText(singleVideo.getTitle());
+
+
+        ImageButton preview_PlayButton = findViewById(R.id.preview_play_button);
+        preview_PlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PlayVideo.class);
+                intent.putExtra("VIDEO_URL", singleVideo.getID());
+                context.startActivity(intent);
+            }
+        });
+
+
+        TextView preview_gnre_duration_release_textview = findViewById(R.id.preview_gnre_duration_year_text);
+        String strToShow = "";
+        for(int i = 0; i< singleVideo.getGenre().size(); i++){
+            strToShow += singleVideo.getGenre().get(i);
+            if(i>=2){
+                break;
+            }
+            if(i < (singleVideo.getGenre().size() - 1)){
+                strToShow += ", ";
+            }
+        }
+        strToShow += " | ";
+        strToShow += singleVideo.getDuration();
+        strToShow += " | ";
+        strToShow += "Released: " + singleVideo.getReleased();
+        preview_gnre_duration_release_textview.setText(strToShow);
+
+        TextView preview_rating_text = findViewById(R.id.preview_rating_text);
+        if(singleVideo.getRatings().size()>0){
+            preview_rating_text.setText(singleVideo.getRatings().get(0).getValue());
+        }else{
+            preview_rating_text.setVisibility(View.INVISIBLE);
+        }
+
+
+        TextView preview_like_count = findViewById(R.id.preview_like_count_text);
+        preview_like_count.setText(String.valueOf(singleVideo.getLikeCount()) + " likes");
+
+        TextView preview_dislike_count = findViewById(R.id.preview_dislike_count_text);
+        preview_dislike_count.setText(String.valueOf(singleVideo.getDislikeCount()) + " dislikes");
+
+        TextView preview_ViewCount = findViewById(R.id.preview_viewCount_text);
+        preview_ViewCount.setText(String.valueOf(singleVideo.getViewCount()) + " views");
+
+        TextView preview_Plot = findViewById(R.id.preview_plot_text);
+        preview_Plot.setText(singleVideo.getPlot());
+
+
+
+
+
+
+
+
+    }
+}

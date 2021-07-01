@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="cardBackground">#DCDCDC</color>
     <color name="grey">#808080</color>
+    <color name="red">#FF0000</color>
+    <color name="metalic_yellow">#FDCC0D</color>
 </resources>

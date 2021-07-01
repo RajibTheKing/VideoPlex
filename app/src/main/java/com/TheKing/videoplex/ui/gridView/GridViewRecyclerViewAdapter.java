@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import com.TheKing.videoplex.ui.Preview.PreviewActivity;
 import com.TheKing.videoplex.ui.home.PlayVideo;
 import com.TheKing.videoplex.ui.model.Video;
 import com.TheKing.videoplex.ui.model.Video_Data;
@@ -31,17 +32,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements Filterable {
     Context context;
     ArrayList<Video_Data> arrayList;
     ArrayList<Video_Data> arrayListFull;
+    Gson gson;
 
     public GridViewRecyclerViewAdapter(Context context, ArrayList<Video_Data> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
         arrayListFull = new ArrayList<>(arrayList);
+        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     }
 
     @NonNull
@@ -80,9 +85,19 @@ public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements
             @Override
             public void onClick(View v) {
                 // Toast.makeText(context, horizontalModel.getName() + " --> Selected", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(context, PlayVideo.class);
-                intent.putExtra("VIDEO_URL", singleVideoModel.getID());
-                context.startActivity(intent);
+                if (singleVideoModel.getCategory().compareTo("Movie") == 0){
+
+                    Intent intent = new Intent(context, PreviewActivity.class);
+                    String singleVideoInJson = gson.toJson(singleVideoModel);
+                    intent.putExtra("singleVideoJson", singleVideoInJson);
+                    context.startActivity(intent);
+
+                }else{
+                    Intent intent = new Intent(context, PlayVideo.class);
+                    intent.putExtra("VIDEO_URL", singleVideoModel.getID());
+                    context.startActivity(intent);
+                }
+
 
             }
         });
