@@ -19,7 +19,15 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/previewToolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize">
+
+            <ImageButton
+                android:id="@+id/preview_actionbar_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_arrow_back_24"/>
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -60,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="40dp"
                 android:maxEms="10"
                 android:text="Name Of Movie"
                 android:textColor="@color/white"

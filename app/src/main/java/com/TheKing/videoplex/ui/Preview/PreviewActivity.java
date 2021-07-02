@@ -36,7 +36,6 @@ public class PreviewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.previewToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         //Get Parameter Value:
@@ -122,7 +121,13 @@ public class PreviewActivity extends AppCompatActivity {
 
 
 
-
+        ImageButton back_button = findViewById(R.id.preview_actionbar_back_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
     }
