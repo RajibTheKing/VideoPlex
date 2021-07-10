@@ -77,7 +77,12 @@ public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements
             imageURL = singleVideoModel.getThumbnail_URL();
         }
 
-        Glide.with(this.context).load(imageURL)
+        Glide.with(this.context)
+                .load(imageURL)
+                .error(
+                        Glide.with(this.context)
+                             .load(singleVideoModel.getThumbnail_URL())
+                )
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolderClass.imageView);
 

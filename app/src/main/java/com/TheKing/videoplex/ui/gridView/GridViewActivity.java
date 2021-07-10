@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 
 import com.TheKing.videoplex.R;
 import com.TheKing.videoplex.ui.home.VerticalModel;
@@ -91,12 +93,13 @@ public class GridViewActivity extends AppCompatActivity {
             }
         });
 
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
 
-
-
-
-
-
+        });
 
 
     }

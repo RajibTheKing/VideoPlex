@@ -29,6 +29,7 @@
         android:layout_marginRight="20dp"
         android:background="@color/grey"
         android:layout_below="@+id/gridViewActivityAppBar"
+        android:clickable="true"
         >
 
     </androidx.appcompat.widget.SearchView>

@@ -72,6 +72,10 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
         }
 
         Glide.with(this.context).load(imageURL)
+                .error(
+                        Glide.with(this.context)
+                                .load(singleVideoModel.getThumbnail_URL())
+                )
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolderClass.imageView);
 
@@ -113,6 +117,7 @@ public class HorizontalRecyclerViewAdapter extends RecyclerView.Adapter {
         public HorizontalViewHolderClass(@NonNull @NotNull View itemView) {
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.textView);
+            textView.setSelected(true);
             imageView = (ImageView)itemView.findViewById(R.id.imageView);
         }
     }

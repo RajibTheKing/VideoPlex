@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,6 +16,7 @@ import com.TheKing.videoplex.R;
 import com.TheKing.videoplex.ui.home.PlayVideo;
 import com.TheKing.videoplex.ui.home.VerticalModel;
 import com.TheKing.videoplex.ui.model.Video_Data;
+import com.TheKing.videoplex.utility.SharedPreferenceUtility;
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -23,15 +25,22 @@ import com.google.gson.GsonBuilder;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class PreviewActivity extends AppCompatActivity {
     Gson gson;
     Video_Data singleVideo;
     Context context;
+    ArrayList<String> favoriteList;
+    SharedPreferenceUtility sharedPreferenceUtility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        sharedPreferenceUtility = new SharedPreferenceUtility();
+        favoriteList = sharedPreferenceUtility.GetFavoriteList(context);
+
         setContentView(R.layout.activity_preview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.previewToolbar);
         setSupportActionBar(toolbar);
@@ -128,6 +137,31 @@ public class PreviewActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        ImageButton favorite_button = findViewById(R.id.preview_actionbar_favorite_button);
+
+
+        if(favoriteList.contains(singleVideo.getID())){
+            favorite_button.setImageResource(R.drawable.ic_baseline_favorite_24_filled);
+        }else{
+            favorite_button.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+        }
+        favorite_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(favoriteList.contains(singleVideo.getID())){
+                    favorite_button.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    favoriteList.remove(singleVideo.getID());
+                }else{
+                    favorite_button.setImageResource(R.drawable.ic_baseline_favorite_24_filled);
+                    favoriteList.add(singleVideo.getID());
+                }
+
+                sharedPreferenceUtility.StoreFavoriteList(context, favoriteList);
+            }
+        });
+
 
 
     }
