@@ -9,6 +9,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_stats">Statistics</string>
+    <string name="menu_favorite">Favorites</string>
     <string name="favorite_list_tag">FAVORITE_LIST</string>
     <string name="watch_list_tag">WATCHED_LIST</string>
 </resources>

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.TheKing.videoplex.R;
 import com.TheKing.videoplex.ui.home.PlayVideo;
@@ -153,9 +154,11 @@ public class PreviewActivity extends AppCompatActivity {
                 if(favoriteList.contains(singleVideo.getID())){
                     favorite_button.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                     favoriteList.remove(singleVideo.getID());
+                    Toast.makeText(context, singleVideo.getTitle() + " is Removed from Favorite List", Toast.LENGTH_LONG).show();
                 }else{
                     favorite_button.setImageResource(R.drawable.ic_baseline_favorite_24_filled);
                     favoriteList.add(singleVideo.getID());
+                    Toast.makeText(context, singleVideo.getTitle() + " is added to Favorite List", Toast.LENGTH_LONG).show();
                 }
 
                 sharedPreferenceUtility.StoreFavoriteList(context, favoriteList);

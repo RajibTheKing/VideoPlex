@@ -1,4 +1,4 @@
-package com.TheKing.videoplex.ui.gridView;
+package com.TheKing.videoplex.ui.favoriteList;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,13 +36,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
-public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements Filterable {
+public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter {
     Context context;
     ArrayList<Video_Data> arrayList;
     ArrayList<Video_Data> arrayListFull;
     Gson gson;
 
-    public GridViewRecyclerViewAdapter(Context context, ArrayList<Video_Data> arrayList) {
+    public FavoriteRecyclerViewAdapter(Context context, ArrayList<Video_Data> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
         arrayListFull = new ArrayList<>(arrayList);
@@ -82,7 +82,7 @@ public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements
                 .load(imageURL)
                 .error(
                         Glide.with(this.context)
-                             .load(singleVideoModel.getThumbnail_URL())
+                                .load(singleVideoModel.getThumbnail_URL())
                 )
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolderClass.imageView);
@@ -125,38 +125,4 @@ public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements
             imageView = (ImageView)itemView.findViewById(R.id.imageView);
         }
     }
-
-
-    @Override
-    public Filter getFilter() {
-        return OurSearchFilter;
-    }
-
-    private Filter OurSearchFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<Video_Data> filteredList = new ArrayList<>();
-            if (constraint == null || constraint.length() == 0){
-                filteredList.addAll(arrayListFull);
-            }else{
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Video_Data item : arrayListFull){
-                    if (item.getTitle().toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            arrayList.clear();
-            arrayList.addAll((ArrayList<Video_Data>) results.values);
-            notifyDataSetChanged();
-        }
-    };
 }
