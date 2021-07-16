@@ -15,18 +15,35 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 
 import com.TheKing.videoplex.R;
 import com.TheKing.videoplex.ui.home.VerticalModel;
 import com.TheKing.videoplex.ui.home.VerticalRecyclerViewAdapter;
+import com.TheKing.videoplex.ui.model.FilterData;
+import com.TheKing.videoplex.ui.model.Video_Data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class GridViewActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class GridViewActivity extends AppCompatActivity implements FilterDialog.FilterDialogListener, MyExpandableListAdapter.MyExpandableListListener {
     Gson gson;
     RecyclerView gridRecyclerView;
     GridViewRecyclerViewAdapter gridViewRecyclerViewAdapter;
     SearchView searchView;
+
+    ImageButton filterBtn;
+    ArrayList<Video_Data> videoData;
+    HashMap<String, ArrayList<String>> expandableListDataSelected;
+    FilterData filterData;
+
+
+
+
 
 
 
@@ -34,6 +51,11 @@ public class GridViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_view);
+        filterData = new FilterData();
+
+        Log.d("TheKing--> ", "Initializing expandableListDataSelected");
+        expandableListDataSelected = new HashMap<>();
+        this.clearFilter();
 
 
 
@@ -54,6 +76,7 @@ public class GridViewActivity extends AppCompatActivity {
         //Log.d("TheKing-->", "GridViewActivity verticalModel = " + verticalModelInJson);
 
         VerticalModel verticalModel = gson.fromJson(verticalModelInJson, VerticalModel.class);
+        videoData = verticalModel.getArrayList();
 
 
         gridRecyclerView = findViewById(R.id.gridRecylerView);
@@ -70,7 +93,7 @@ public class GridViewActivity extends AppCompatActivity {
             gridRecyclerView.setLayoutManager(gridLayoutManager);
             gridRecyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels, 4));
         }
-        gridViewRecyclerViewAdapter = new GridViewRecyclerViewAdapter(this, verticalModel.getArrayList());
+        gridViewRecyclerViewAdapter = new GridViewRecyclerViewAdapter(this, videoData);
 
 
         gridRecyclerView.setAdapter(gridViewRecyclerViewAdapter);
@@ -88,7 +111,9 @@ public class GridViewActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Log.d("TheKing--> ", "onQueryTexhChange: " + newText);
-                gridViewRecyclerViewAdapter.getFilter().filter(newText);
+                filterData.setSearchQuery(newText);
+                filterData.setExtendedData(expandableListDataSelected);
+                gridViewRecyclerViewAdapter.getFilter().filter(gson.toJson(filterData).toString());
                 return false;
             }
         });
@@ -101,6 +126,49 @@ public class GridViewActivity extends AppCompatActivity {
 
         });
 
+
+        //TheKing--> Here I am starting to Initialize Expandable List View
+        filterBtn = findViewById(R.id.filterBtn);
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+
+
+
+
+
+    }
+
+    private void openDialog(){
+
+        FilterDialog filterDialog = new FilterDialog(videoData, expandableListDataSelected);
+        filterDialog.show(getSupportFragmentManager(), "Filter Videos");
+
+    }
+
+
+    @Override
+    public void applyFilter() {
+        Log.d("TheKign--> ", "FilterData: " + this.expandableListDataSelected.toString());
+        filterData.setSearchQuery("");
+        filterData.setExtendedData(expandableListDataSelected);
+        gridViewRecyclerViewAdapter.getFilter().filter(gson.toJson(filterData).toString());
+    }
+
+    @Override
+    public void clearFilter() {
+        expandableListDataSelected.put("Genre", new ArrayList<>());
+        expandableListDataSelected.put("Country", new ArrayList<>());
+        expandableListDataSelected.put("Language", new ArrayList<>());
+        expandableListDataSelected.put("Year", new ArrayList<>());
+        Log.d("TheKing-->", "clearFilter: " + expandableListDataSelected.toString());
+    }
+
+    public void OnCheckBoxChanged(String groupName, String childName, boolean isChecked){
+        Log.d("TheKing-->", "OnCheckBoxChanged: " + groupName + ", " + childName + ", " + isChecked);
 
     }
 }

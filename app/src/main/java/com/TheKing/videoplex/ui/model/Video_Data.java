@@ -3,6 +3,7 @@ package com.TheKing.videoplex.ui.model;
 import com.TheKing.videoplex.ui.model.CastObj;
 import com.TheKing.videoplex.ui.model.RatingObj;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,7 +22,7 @@ public class Video_Data{
     String Duration;
     ArrayList<String> Genre;
     String Quality;
-    String Country;
+    ArrayList<String> Country;
     ArrayList<String> Language;
     ArrayList<String> Director;
     ArrayList<String> Producer;
@@ -141,11 +142,11 @@ public class Video_Data{
         Quality = quality;
     }
 
-    public String getCountry() {
+    public ArrayList<String> getCountry() {
         return Country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(ArrayList<String> country) {
         Country = country;
     }
 

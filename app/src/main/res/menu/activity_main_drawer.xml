@@ -17,5 +17,15 @@
             android:id="@+id/nav_favorite"
             android:icon="@drawable/ic_baseline_favorite_border_24"
             android:title="@string/menu_favorite" />
+
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_baseline_star_border_24"
+            android:title="@string/menu_rate" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="@string/menu_about" />
     </group>
 </menu>

@@ -74,7 +74,7 @@ public class StatisticsFragment extends Fragment {
 
 
 
-        BarDataSet barDataSet = new BarDataSet(visitors, "Visitors Lebel");
+        BarDataSet barDataSet = new BarDataSet(visitors, "Statistics of Video Contents");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         barDataSet.setValueTextSize(16f);
         barDataSet.setValueTextColor(Color.WHITE);
@@ -91,6 +91,9 @@ public class StatisticsFragment extends Fragment {
         xAxis.setDrawAxisLine(false);
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(xAxisValues.size());
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        barChart.getDescription().setEnabled(false);
+        barChart.getXAxis().setTextColor(Color.WHITE);
         return view;
     }
 

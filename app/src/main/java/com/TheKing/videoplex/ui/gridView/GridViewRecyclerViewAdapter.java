@@ -22,10 +22,13 @@ import com.TheKing.videoplex.R;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.TheKing.videoplex.ui.Preview.PreviewActivity;
 import com.TheKing.videoplex.ui.home.PlayVideo;
+import com.TheKing.videoplex.ui.model.FilterData;
 import com.TheKing.videoplex.ui.model.Video;
 import com.TheKing.videoplex.ui.model.Video_Data;
 import com.bumptech.glide.Glide;
@@ -44,8 +47,8 @@ public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements
 
     public GridViewRecyclerViewAdapter(Context context, ArrayList<Video_Data> arrayList) {
         this.context = context;
-        this.arrayList = arrayList;
-        arrayListFull = new ArrayList<>(arrayList);
+        this.arrayList = new ArrayList<>(arrayList);
+        this.arrayListFull = new ArrayList<>(arrayList);
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     }
 
@@ -135,14 +138,52 @@ public class GridViewRecyclerViewAdapter extends RecyclerView.Adapter implements
     private Filter OurSearchFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+            FilterData filterData = gson.fromJson(constraint.toString(), FilterData.class);
+            HashMap<String, ArrayList<String>> extendedData = filterData.getExtendedData();
+
+            String filterPattern = filterData.getSearchQuery().toLowerCase().trim();
             ArrayList<Video_Data> filteredList = new ArrayList<>();
             if (constraint == null || constraint.length() == 0){
                 filteredList.addAll(arrayListFull);
             }else{
-                String filterPattern = constraint.toString().toLowerCase().trim();
                 for (Video_Data item : arrayListFull){
                     if (item.getTitle().toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
+
+                        boolean isValid = true;
+
+                        //Check Genre
+                        for(String x: extendedData.get("Genre")){
+                            if(!item.getGenre().contains(x)){
+                                isValid = false;
+                            }
+                        }
+
+                        //Check Country
+                        for(String x: extendedData.get("Country")){
+                            if(!item.getCountry().contains(x)){
+                                isValid = false;
+                            }
+                        }
+
+                        //Check Language
+                        for(String x: extendedData.get("Language")){
+                            if(!item.getLanguage().contains(x)){
+                                isValid = false;
+                            }
+                        }
+
+                        //Check Year
+                        for(String x: extendedData.get("Year")){
+                            if( item.getYear().compareTo(x) != 0){
+                                isValid = false;
+                            }
+                        }
+
+
+                        if(isValid){
+                            filteredList.add(item);
+                        }
+
                     }
                 }
             }
